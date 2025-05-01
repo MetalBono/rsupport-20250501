@@ -1,0 +1,6 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: kyusubkim-20250501
