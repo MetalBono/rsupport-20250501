@@ -80,8 +80,8 @@ docker-compose down -v
     * [서비스용 API](http://localhost:8080/swagger-ui/index.html#/%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD%20(%EC%84%9C%EB%B9%84%EC%8A%A4%EC%9A%A9))
 
 #### 위와 같은 설계 목적
-* 공지사항이라는 특성 상 서비스 화면에서 엄청난 대량의 데이터를 보여줄 필요가 없습니다. 따라서 노출하고자 하는 목록을 별도로 캐싱하여 관리합니다.
-* 공지사항의 노출 기간이 시간이 지남에 따라 유동적이므로, 캐시에는 가능한 모든 데이터를 저장해두고, API 요청시마다 시간에 따라 적절하게 필터하도록 하여 실시간성을 보장합니다.
+* 공지사항이라는 특성 상 서비스 화면에서 엄청난 대량의 데이터를 보여줄 필요가 없습니다. 따라서 노출하고자 하는 목록을 별도로 캐싱하여 관리합니다. 캐싱을 통해 매번 조회 대상 공지사항 목록을 DB 에서 검색할 필요 없이 캐시가 만료되거나 특정 필요한 시점에만 갱신할 수 있도록 합니다.
+* 공지사항의 노출 기간이 시간이 지남에 따라 유동적이므로, 캐시에는 가능한 모든 데이터를 저장해두고, API 요청시마다 시간에 따라 적절하게 필터하도록 하여, 공지사항 노출 기간 변경에 대한 실시간성을 보장합니다.
 * 모든 공지사항의 상세 정보는 notice:{noticeId} 에만 저장되고, 목록 조회시에도 이를 활용합니다. 이는 Redis 데이터가 목록용 / 상세용으로 이원화되어 관리가 복잡해지지 않도록 하기 위함입니다.
 
 ### 서비스용 API 에서 공지사항 목록 조회 시 서로 다른 페이지에서 중복노출이 되는 경우
@@ -133,6 +133,7 @@ CREATE TABLE `notice` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
 
+### notice_attachment
 * 공지사항 별 첨부파일 정보 테이블
 ```sql
 CREATE TABLE `notice_attachment` (
@@ -145,6 +146,7 @@ CREATE TABLE `notice_attachment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
 
+### attached_files
 * 첨부파일 저장용 테이블
 ```sql
 CREATE TABLE `attached_files` (
