@@ -26,7 +26,7 @@ data class UpdateNoticeRequest(
     @field:NotNull(message = "공지 종료 일시 값은 필수 값 입니다.")
     val endsAt: LocalDateTime?,
     @Schema(description = "첨부파일 목록")
-    val attachments: List<UpdateNoticeAttachmentRequest>?,
+    val attachments: List<UpdateNoticeAttachmentRequest>? = null,
     @Schema(description = "수정자", example = "23456")
     @field:NotBlank(message = "수정자는 필수 값 입니다.")
     val updatedBy: String?,

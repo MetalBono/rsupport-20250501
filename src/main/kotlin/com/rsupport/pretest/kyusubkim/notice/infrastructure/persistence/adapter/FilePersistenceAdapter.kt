@@ -28,6 +28,7 @@ class FilePersistenceAdapter(
         return attachedFilesRepository.save(fileEntity).id!!
     }
 
+    @Transactional(readOnly = true)
     override fun getFile(fileId: Long): AttachedFile {
         return attachedFilesRepository.findById(fileId)
             .map { it.toDomain() }

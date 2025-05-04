@@ -10,7 +10,7 @@ data class UpdateNoticeRequestDto(
     val content: String,
     val startsAt: LocalDateTime,
     val endsAt: LocalDateTime,
-    val attachments: List<NoticeAttachment>?,
+    val attachments: List<NoticeAttachment>? = null,
     val updatedBy: String,
 ) {
     init {

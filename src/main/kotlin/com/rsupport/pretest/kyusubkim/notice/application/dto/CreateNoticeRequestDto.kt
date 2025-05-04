@@ -9,7 +9,7 @@ data class CreateNoticeRequestDto(
     val content: String,
     val startsAt: LocalDateTime,
     val endsAt: LocalDateTime,
-    val attachments: List<NoticeAttachment>?,
+    val attachments: List<NoticeAttachment>? = null,
     val createdBy: String,
 ) {
     init {

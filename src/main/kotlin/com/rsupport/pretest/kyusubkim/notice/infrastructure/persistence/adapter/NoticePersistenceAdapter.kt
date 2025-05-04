@@ -110,12 +110,14 @@ class NoticePersistenceAdapter(
         noticeRepository.incrementViewCount(noticeId, viewCount)
     }
 
+    @Transactional(readOnly = true)
     override fun getNotice(noticeId: Long): Notice? {
         return noticeRepository.findById(noticeId)
             .map { it.toDomain() }
             .orElse(null)
     }
 
+    @Transactional(readOnly = true)
     override fun getNoticeList(
         searchType: NoticeSearchType?,
         searchKeyword: String?,
@@ -142,6 +144,7 @@ class NoticePersistenceAdapter(
             }
     }
 
+    @Transactional(readOnly = true)
     override fun getNoticeListByIds(noticeIds: List<Long>): List<Notice> {
         return noticeRepository.findAllById(noticeIds)
             .map { it.toDomain() }

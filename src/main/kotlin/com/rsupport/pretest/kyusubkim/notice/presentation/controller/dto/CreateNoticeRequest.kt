@@ -26,7 +26,7 @@ data class CreateNoticeRequest(
     @field:NotNull(message = "공지 종료 일시 값은 필수 값 입니다.")
     val endsAt: LocalDateTime?,
     @Schema(description = "첨부파일 목록")
-    val attachments: List<CreateNoticeAttachmentRequest>?,
+    val attachments: List<CreateNoticeAttachmentRequest>? = null,
     @Schema(description = "등록자", example = "12345")
     @field:NotBlank(message = "등록자는 필수 값 입니다.")
     val createdBy: String?,
